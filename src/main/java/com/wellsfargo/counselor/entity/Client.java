@@ -1,66 +1,70 @@
 package com.wellsfargo.counselor.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue()
+    private long clientId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(nullable = false)
+    private String firstName;
 
-    @Column(name = "email")
-    private String email;
+    @Column(nullable = false)
+    private String lastName;
 
-    @Column(name = "phone")
+    @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = false)
+    private String email;
+
     @ManyToOne
-    @JoinColumn(name = "advisor_id")
+    @JoinColumn(name = "advisorId", nullable = false)
     private Advisor advisor;
 
     @OneToOne(mappedBy = "client")
     private Portfolio portfolio;
 
-    public Client() {
+    protected Client() {
     }
 
-    public Client(String name, String email, String phone, Advisor advisor, Portfolio portfolio) {
-        this.name = name;
-        this.email = email;
+    public Client(String firstName, String lastName, String phone, String email,
+                  Advisor advisor, Portfolio portfolio) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phone = phone;
+        this.email = email;
         this.advisor = advisor;
         this.portfolio = portfolio;
     }
 
-    public Long getId() {
-        return id;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhone() {
@@ -69,6 +73,14 @@ public class Client {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Advisor getAdvisor() {
