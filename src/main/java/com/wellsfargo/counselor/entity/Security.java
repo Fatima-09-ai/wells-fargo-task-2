@@ -3,45 +3,44 @@ package com.wellsfargo.counselor.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Security {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue()
+    private long securityId;
 
-    @Column(name = "name")
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "category")
+    @Column(nullable = false)
     private String category;
 
-    @Column(name = "purchase_date")
+    @Column(nullable = false)
     private LocalDate purchaseDate;
 
-    @Column(name = "purchase_price")
+    @Column(nullable = false)
     private BigDecimal purchasePrice;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(nullable = false)
+    private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "portfolio_id")
+    @JoinColumn(name = "portfolioId", nullable = false)
     private Portfolio portfolio;
 
-    public Security() {
+    protected Security() {
     }
 
     public Security(String name, String category, LocalDate purchaseDate,
-                     BigDecimal purchasePrice, Integer quantity, Portfolio portfolio) {
+                     BigDecimal purchasePrice, int quantity, Portfolio portfolio) {
         this.name = name;
         this.category = category;
         this.purchaseDate = purchaseDate;
@@ -50,8 +49,8 @@ public class Security {
         this.portfolio = portfolio;
     }
 
-    public Long getId() {
-        return id;
+    public Long getSecurityId() {
+        return securityId;
     }
 
     public String getName() {
@@ -86,11 +85,11 @@ public class Security {
         this.purchasePrice = purchasePrice;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
